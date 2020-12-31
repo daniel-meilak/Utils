@@ -166,8 +166,11 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
                }
             }
          }
-         // push_back last value
-         temp_vector.push_back(temp_val);
+         // push_back last value (if not empty)
+         if ( temp_val != ""){
+            temp_vector.push_back(temp_val);
+         }
+         // add vector to input
          input.push_back(temp_vector);
          temp_vector.clear();
          temp_val.clear();
