@@ -35,4 +35,7 @@ int decimal_to_binary( int decimal );
 // split string containing values separated by delimiter into vector of strings
 std::vector<std::string> split(std::string str, std::string delimiter);
 
+// calculates the modulus such that negative numbers wrap around
+template <typename T> T mod( T a, T b){ return (b + (a%b)) % b; }
+
 #endif /* UTILS_H */

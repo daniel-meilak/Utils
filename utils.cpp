@@ -302,4 +302,4 @@ std::vector<std::vector<std::string>> split_input(std::vector<std::string> input
    output.push_back(part);
 
    return output;
-} 
+}
