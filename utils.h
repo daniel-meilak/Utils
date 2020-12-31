@@ -35,7 +35,23 @@ int decimal_to_binary( int decimal );
 // split string containing values separated by delimiter into vector of strings
 std::vector<std::string> split(std::string str, std::string delimiter);
 
+// TEMPLATES
+
 // calculates the modulus such that negative numbers wrap around
 template <typename T> T mod( T a, T b){ return (b + (a%b)) % b; }
+
+// sum values in column n of 2D square vector
+template <typename T> T sum_col(const std::vector<std::vector<T>> &input, const size_t &n){
+    T sum = 0;
+    for ( std::vector<T> line : input ){ sum += line[n]; }
+    return sum;
+}
+
+// sum values in row n of 2D square vector
+template <typename T> T sum_row(const std::vector<std::vector<T>> &input, const size_t &n){
+    T sum = 0;
+    for ( T element : input[n] ){ sum += element; }
+    return sum;
+}
 
 #endif /* UTILS_H */
