@@ -3,6 +3,7 @@
 
 #include<vector>
 #include<string>
+#include<cmath>
 
 // read input file into vector of strings
 std::vector<std::string> read_input(std::string file_name, std::string separator);
@@ -52,6 +53,16 @@ template <typename T> T sum_row(const std::vector<std::vector<T>> &input, const 
     T sum = 0;
     for ( T element : input[n] ){ sum += element; }
     return sum;
+}
+
+// manhattan distance between two points (2D)
+template <typename T> T manhattan_dist(const T &x1, const T &y1, const T &x2, const T &y2){
+    return (x2-x1) + (y2-y1);
+}
+
+// euclidian distance between two points (2D)
+template <typename T> T euclidian_dist(const T &x1, const T &y1, const T &x2, const T &y2){
+    return std::sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
 }
 
 #endif /* UTILS_H */
