@@ -84,7 +84,7 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
       line_length = line.size();
 
       if ( separator == "" ){
-         std::cout << "Use read_input instead of read_input_2D" << std::endl;
+         std::cout << "No delimiters provided.\nConsider using read_input instead of read_input_2D" << std::endl;
          std::exit(EXIT_FAILURE);
       }
       else {
