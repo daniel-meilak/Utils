@@ -29,6 +29,9 @@ std::vector<double> input_to_double(std::vector<std::string> input);
 // convert vec of vec of string to vec of vec of int
 std::vector<std::vector<int>> input_to_int_2D(std::vector<std::vector<std::string>> input);
 
+// convert vec of vec of string to vec of vec of long long ints
+std::vector<std::vector<long long int>> input_to_llint_2D(std::vector<std::vector<std::string>> input);
+
 // binary to decimal converter
 int binary_to_decimal( int binary );
 

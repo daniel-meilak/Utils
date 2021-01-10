@@ -215,6 +215,21 @@ std::vector<long long int> input_to_llint(std::vector<std::string> input){
    return output;
 }
 
+// convert 2D vector of vector of strings to vector of vector of long long ints
+std::vector<std::vector<long long int>> input_to_llint_2D(std::vector<std::vector<std::string>> input){
+
+   std::vector<std::vector<long long int>> output(input.size());
+
+   for (unsigned int i=0; i<input.size(); i++){
+      for (unsigned int j=0; j<input[i].size(); j++){
+         
+         output[i].push_back(std::stoll(input[i][j]));
+      }
+   }
+
+   return output;
+}
+
 // convert vector of strings to vector of doubles
 std::vector<double> input_to_double(std::vector<std::string> input){
 
