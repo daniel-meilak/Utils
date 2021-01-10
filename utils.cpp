@@ -59,14 +59,14 @@ std::vector<std::string> read_input(std::string file_name, std::string separator
    return input;
 }
 
-// Function to read input file "file_name" containing lines split by separator
-// and output a vector of vector of strings called "input"
-std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::string separator){
+// Function to read input file "file_name" containing a single line of characters
+// and remove any strings in "delimiters"
+std::string read_line(std::string file_name, std::vector<std::string> delimiters){
 
-   // output vector of strings
-   std::vector<std::vector<std::string>> input;
+   // output
+   std::string output;
 
-   // read input into "line"
+   // string to read input
    std::string line;
    std::ifstream input_file (file_name);
 
@@ -76,43 +76,37 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
       std::exit(EXIT_FAILURE);
    }
 
-   int line_length;
-   std::string temp_val;
-   std::vector<std::string> temp_vector;
-   while ( getline(input_file, line) ){
+   getline(input_file, line);
 
-      line_length = line.size();
+   const int line_length = line.size();
 
-      if ( separator == "" ){
-         std::cout << "No delimiters provided.\nConsider using read_input instead of read_input_2D" << std::endl;
-         std::exit(EXIT_FAILURE);
-      }
-      else {
-         // loop through contents of line
-         for ( int read_pos=0; read_pos<line_length; read_pos++ ){
+   if ( delimiters.size() == 0 ){
+      return line;
+   }
+   else {
 
-            // if next characters != separator, add next char to temp_val
-            if ( line.substr(read_pos, separator.size()) != separator ){
-               temp_val.push_back(line[read_pos]);
+      // loop through contents of line
+      for ( int read_pos=0; read_pos<line_length; read_pos++ ){
+
+         for (unsigned int i=0; i<delimiters.size(); i++){
+            // if next characters match possible delimiters, skip delimiter
+            if ( line.substr(read_pos, delimiters[i].size()) != delimiters[i]){
+               read_pos += delimiters[i].size()-1;
+               break;
             }
-            // else add the value to temp_vector and skip the separator
+            // if next character does not match any delimiter, add to output
             else {
-               read_pos += separator.size()-1;
-               temp_vector.push_back(temp_val);
-               temp_val.clear();
+               if ( i == delimiters.size()-1 ){
+                  output += line[read_pos];
+               }
             }
          }
-         // push_back last value
-         temp_vector.push_back(temp_val);
-         input.push_back(temp_vector);
-         temp_vector.clear();
-         temp_val.clear();
       }
    }
 
    input_file.close();
 
-   return input;
+   return output;
 }
 
 // Function to read input file "file_name" containing lines split by multiple delimiters
