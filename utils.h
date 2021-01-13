@@ -74,10 +74,11 @@ template <typename T> T euclidian_dist(const T &x1, const T &y1, const T &x2, co
 
 // advance iterator cyclicly through container by n
 template<typename It, typename Distance, typename Con>
-constexpr void advance_cyclic(It &it, Distance n, const Con &container){
+constexpr void advance_cyclic(It &it, Distance n, Con &container){
+    auto dist = typename std::iterator_traits<It>::difference_type(n);
     while (dist > 0){
         --dist;
-        if (it == std::next(container.eng(),-1)){ it = container.begin(); }
+        if (it == std::next(container.end(),-1)){ it = container.begin(); }
         else { it++; }
     }
     while (dist < 0){
@@ -89,7 +90,7 @@ constexpr void advance_cyclic(It &it, Distance n, const Con &container){
 
 // return iterator n steps ahead/behind, cyclicly in container
 template<typename It, typename Distance, typename Con>
-constexpr It next_cyclic(It it, const Distance &n, const Con &container){
+constexpr It next_cyclic(It it, const Distance &n, Con &container){
     advance_cyclic(it, n, container);
 
     return it;
