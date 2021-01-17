@@ -106,4 +106,17 @@ constexpr It next_cyclic(It it, const Distance &n, Con &container){
     return it;
 }
 
+// checks if a number is prime
+template<typename T> bool is_prime(T n){
+    if (n <= 1){ return false; }
+
+    for (T i=2; i<n; i++){
+        if (n % i == 0){
+            return false;
+        }
+    }
+
+    return true;
+}
+
 #endif /* UTILS_H */
