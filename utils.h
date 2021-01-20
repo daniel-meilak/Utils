@@ -51,15 +51,43 @@ template <typename T> T mod( T a, T b){ return (b + (a%b)) % b; }
 // sum values in column n of 2D square vector
 template <typename T> T sum_col(const std::vector<std::vector<T>> &input, const size_t &n){
     T sum = 0;
-    for ( std::vector<T> line : input ){ sum += line[n]; }
+    for (const std::vector<T> &line : input ){ sum += line[n]; }
     return sum;
 }
 
 // sum values in row n of 2D square vector
 template <typename T> T sum_row(const std::vector<std::vector<T>> &input, const size_t &n){
     T sum = 0;
-    for ( T element : input[n] ){ sum += element; }
+    for (const T &element : input[n] ){ sum += element; }
     return sum;
+}
+
+// min value in column n of 2D square vector
+template <typename T> T min_col(const std::vector<std::vector<T>> &input, const size_t &n){
+    T min = input[0][n];
+    for (const std::vector<T> &line : input ){ min = std::min(min,line[n]); }
+    return min;
+}
+
+// max value in column n of 2D square vector
+template <typename T> T max_col(const std::vector<std::vector<T>> &input, const size_t &n){
+    T max = input[0][n];
+    for (const std::vector<T> &line : input ){ max = std::max(max,line[n]); }
+    return max;
+}
+
+// min value in row n of 2D square vector
+template <typename T> T min_row(const std::vector<std::vector<T>> &input, const size_t &n){
+    T min = input[n][0];
+    for (const T &element : input[n] ){ min = std::min(min,element); }
+    return min;
+}
+
+// max value in row n of 2D square vector
+template <typename T> T max_row(const std::vector<std::vector<T>> &input, const size_t &n){
+    T max = input[n][0];
+    for (const T &element : input[n] ){ max = std::max(max,element); }
+    return max;
 }
 
 // manhattan distance between two points(3D)
