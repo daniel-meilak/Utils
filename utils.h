@@ -90,24 +90,29 @@ template <typename T> T max_row(const std::vector<std::vector<T>> &input, const 
     return max;
 }
 
-// manhattan distance between two points(3D)
-template <typename T> T manhattan_3D(const T &x1, const T &y1, const T &z1, const T &x2=0, const T &y2=0, const T &z2=0){
-    return std::abs(x2-x1) + std::abs(y2-y1) + std::abs(z2-z1);
-}
-
 // manhattan distance between two points (2D)
 template <typename T> T manhattan_2D(const T &x1, const T &y1, const T &x2=0, const T &y2=0){
     return std::abs(x2-x1) + std::abs(y2-y1);
 }
 
-// euclidian distance between two points(3D)
-template <typename T> T euclidian_3D(const T &x1, const T &y1, const T &z1, const T &x2=0, const T &y2=0, const T &z2=0){
-    return std::sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) + (z2-z1)*(z2-z1));
+// manhattan distance between two points(3D)
+template <typename T> T manhattan_3D(const T &x1, const T &y1, const T &z1, const T &x2=0, const T &y2=0, const T &z2=0){
+    return std::abs(x2-x1) + std::abs(y2-y1) + std::abs(z2-z1);
+}
+
+// manhattan distance between two points(4D)
+template <typename T> T manhattan_3D(const T &x1, const T &y1, const T &z1, const T &t1, const T &x2=0, const T &y2=0, const T &z2=0, const T &t2=0){
+    return std::abs(x2-x1) + std::abs(y2-y1) + std::abs(z2-z1) + std::abs(t2-t1);
 }
 
 // euclidian distance between two points (2D)
 template <typename T> T euclidian_2D(const T &x1, const T &y1, const T &x2=0, const T &y2=0){
     return std::sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+}
+
+// euclidian distance between two points(3D)
+template <typename T> T euclidian_3D(const T &x1, const T &y1, const T &z1, const T &x2=0, const T &y2=0, const T &z2=0){
+    return std::sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) + (z2-z1)*(z2-z1));
 }
 
 // advance iterator cyclicly through container by n
