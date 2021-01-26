@@ -101,7 +101,7 @@ template <typename T> T manhattan_3D(const T &x1, const T &y1, const T &z1, cons
 }
 
 // manhattan distance between two points(4D)
-template <typename T> T manhattan_3D(const T &x1, const T &y1, const T &z1, const T &t1, const T &x2=0, const T &y2=0, const T &z2=0, const T &t2=0){
+template <typename T> T manhattan_4D(const T &x1, const T &y1, const T &z1, const T &t1, const T &x2=0, const T &y2=0, const T &z2=0, const T &t2=0){
     return std::abs(x2-x1) + std::abs(y2-y1) + std::abs(z2-z1) + std::abs(t2-t1);
 }
 
