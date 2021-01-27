@@ -203,18 +203,6 @@ std::vector<std::vector<int>> input_to_int_2D(std::vector<std::vector<std::strin
    return output;
 }
 
-// convert vector of strings to vector of long long ints
-std::vector<long long int> input_to_llint(std::vector<std::string> input){
-
-   std::vector<long long int> output;
-
-   for (unsigned int i=0; i<input.size(); i++){
-      output.push_back(std::stoll(input[i]));
-   }
-
-   return output;
-}
-
 // convert 2D vector of vector of strings to vector of vector of long long ints
 std::vector<std::vector<long long int>> input_to_llint_2D(std::vector<std::vector<std::string>> input){
 
@@ -225,6 +213,18 @@ std::vector<std::vector<long long int>> input_to_llint_2D(std::vector<std::vecto
          
          output[i].push_back(std::stoll(input[i][j]));
       }
+   }
+
+   return output;
+}
+
+// convert vector of strings to vector of long long ints
+std::vector<long long int> input_to_llint(std::vector<std::string> input){
+
+   std::vector<long long int> output;
+
+   for (unsigned int i=0; i<input.size(); i++){
+      output.push_back(std::stoll(input[i]));
    }
 
    return output;
