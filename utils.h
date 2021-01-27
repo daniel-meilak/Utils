@@ -161,4 +161,16 @@ template<typename T> bool is_prime(T n){
     return true;
 }
 
+// display function for 2D grid
+template<typename T> 
+void display(const std::vector<std::vector<T>> &grid){
+
+    for (const std::vector<T> &row : grid){
+        for (const T pixel : row){
+            std::cout << pixel;
+        }
+        std::cout << std::endl;
+    }
+} 
+
 #endif /* UTILS_H */
