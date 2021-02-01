@@ -55,6 +55,11 @@ point operator-(const point &lhs, const point &rhs){
    return {lhs.x-rhs.x, lhs.y-rhs.y};
 }
 
+bool operator<(const point &lhs, const point &rhs){
+   if (lhs.x==rhs.x){ return lhs.y<rhs.y; }
+   else { return lhs.x<rhs.x; }
+}
+
 //================================================================
 // Hashing function
 //================================================================
