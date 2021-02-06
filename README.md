@@ -4,6 +4,6 @@ These C++ files were created during various Advent of Code events, with the aim 
 
 The Utils.h and Utils.cpp form the bulk of this repository, containing functions for input parsing of different types.
 
-The math_func.cpp file offers implementations of various algorithms, often adjusted from those on [Rosetta Code](www.rosettacode.org).
+point.h offers a simple 2D point structure as well as various functions for comparison, hashing and distance calculations.
 
-Finally, intcode.h and intcode.cpp offers an implementation of a virtual machine CPU used in Advent of Code 2019.
+The math_func.cpp file offers implementations of various algorithms, often adjusted from those on [Rosetta Code](www.rosettacode.org).
