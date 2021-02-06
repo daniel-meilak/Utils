@@ -24,18 +24,16 @@ std::vector<std::string> read_input(std::string file_name, std::string separator
       std::exit(EXIT_FAILURE);
    }
 
-   int line_length;
+   size_t line_length;
    std::string temp_val;
    while ( getline(input_file, line) ){
 
       line_length = line.size();
 
-      if ( separator == "" ){
-         input.push_back(line);
-      }
+      if ( separator == "" ){ input.push_back(line); }
       else {
          // loop through contents of line
-         for ( int read_pos=0; read_pos<line_length; read_pos++ ){
+         for ( size_t read_pos=0; read_pos<line_length; read_pos++ ){
 
             // if next characters != separator, add next char to temp_val
             if ( line.substr(read_pos, separator.size()) != separator ){
@@ -78,15 +76,13 @@ std::string read_line(std::string file_name, std::vector<std::string> delimiters
 
    getline(input_file, line);
 
-   const int line_length = line.size();
+   size_t line_length = line.size();
 
-   if ( delimiters.size() == 0 ){
-      return line;
-   }
+   if (delimiters.empty()){ return line; }
    else {
 
       // loop through contents of line
-      for ( int read_pos=0; read_pos<line_length; read_pos++ ){
+      for ( size_t read_pos=0; read_pos<line_length; read_pos++ ){
 
          for (unsigned int i=0; i<delimiters.size(); i++){
             // if next characters match possible delimiters, skip delimiter
@@ -126,22 +122,23 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
       std::exit(EXIT_FAILURE);
    }
 
-   int line_length;
+   size_t line_length;
+   size_t delims = delimiters.size();
    std::string temp_val;
    std::vector<std::string> temp_vector;
    while ( getline(input_file, line) ){
 
       line_length = line.size();
 
-      if ( delimiters.size() == 0 ){
+      if (delimiters.empty()){
          std::cout << "Use read_input instead of read_input_2D" << std::endl;
          std::exit(EXIT_FAILURE);
       }
       else {
          // loop through contents of line
-         for ( int read_pos=0; read_pos<line_length; read_pos++ ){
+         for ( size_t read_pos=0; read_pos<line_length; read_pos++ ){
 
-            for (unsigned int i=0; i<delimiters.size(); i++){
+            for (size_t i=0; i<delims; i++){
                // if next characters match possible delimiters, skip delimiter and add to temp_vector
                if ( line.substr(read_pos, delimiters[i].size()) == delimiters[i]){
                   read_pos += delimiters[i].size()-1;
@@ -177,61 +174,56 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
 }
 
 // convert vector of strings to vector of ints
-std::vector<int> input_to_int(std::vector<std::string> input){
+std::vector<int> input_to_int(const std::vector<std::string> &input){
 
-   std::vector<int> output;
-
-   for (unsigned int i=0; i<input.size(); i++){
-      output.push_back(std::stoi(input[i]));
-   }
+   std::vector<int> output(input.size());
+   for (const std::string &line : input){ output.push_back(std::stoi(line)); }
 
    return output;
 }
 
 // convert 2D vector of vector of strings to vector of vector of ints
-std::vector<std::vector<int>> input_to_int_2D(std::vector<std::vector<std::string>> input){
+std::vector<std::vector<int>> input_to_int_2D(const std::vector<std::vector<std::string>> &input){
 
    std::vector<std::vector<int>> output(input.size());
+   size_t size = input.size();
 
-   for (unsigned int i=0; i<input.size(); i++){
-      for (unsigned int j=0; j<input[i].size(); j++){
-         
-         output[i].push_back(std::stoi(input[i][j]));
-      }
+   for (size_t i=0; i<size; i++){
+      output[i].resize(input[i].size());
+
+      for (const std::string &word : input[i]){ output[i].push_back(std::stoi(word)); }
    }
 
    return output;
 }
 
 // convert 2D vector of vector of strings to vector of vector of long long ints
-std::vector<std::vector<long long int>> input_to_llint_2D(std::vector<std::vector<std::string>> input){
+std::vector<std::vector<long long int>> input_to_llint_2D(const std::vector<std::vector<std::string>> &input){
 
    std::vector<std::vector<long long int>> output(input.size());
+   size_t size = input.size();
 
-   for (unsigned int i=0; i<input.size(); i++){
-      for (unsigned int j=0; j<input[i].size(); j++){
-         
-         output[i].push_back(std::stoll(input[i][j]));
-      }
+   for (size_t i=0; i<size; i++){
+      output[i].resize(input[i].size());
+      
+      for (const std::string &word : input[i]){ output[i].push_back(std::stoll(word)); }
    }
 
    return output;
 }
 
 // convert vector of strings to vector of long long ints
-std::vector<long long int> input_to_llint(std::vector<std::string> input){
+std::vector<long long int> input_to_llint(const std::vector<std::string> &input){
 
-   std::vector<long long int> output;
+   std::vector<long long int> output(input.size());
 
-   for (unsigned int i=0; i<input.size(); i++){
-      output.push_back(std::stoll(input[i]));
-   }
+   for (const std::string &line : input){ output.push_back(std::stoll(line)); }
 
    return output;
 }
 
 // convert vector of strings to vector of doubles
-std::vector<double> input_to_double(std::vector<std::string> input){
+std::vector<double> input_to_double(const std::vector<std::string> &input){
 
    std::vector<double> output;
 
@@ -240,40 +232,6 @@ std::vector<double> input_to_double(std::vector<std::string> input){
    }
 
    return output;
-}
-
-// convert binary (represented as normal int) to decimal
-int binary_to_decimal( int binary ){
-
-   int decimal = 0;
-   int i = 0;
-   int remainder;
-
-   while ( binary != 0 ){
-
-      remainder = binary%10;
-      binary /= 10;
-      decimal += remainder*std::pow(2,i);
-      ++i;
-   }
-
-   return decimal;
-}
-
-// convert deicmal to binary (as an int)
-int decimal_to_binary( int decimal ){
-
-   int binary = 0;
-   int remainder, i = 1;
-
-   while ( decimal != 0){
-      remainder = decimal%2;
-      decimal /= 2;
-      binary += remainder*i;
-      i *= 10;
-   }
-
-   return binary;
 }
 
 // split delimiter spaced elements in string into vector of strings
@@ -296,7 +254,7 @@ std::vector<std::string> split(std::string str, std::string delimiter){
 // takes input and splits into multiple vectors according to delimiter
 std::vector<std::vector<std::string>> split_input(std::vector<std::string> input, std::string delimiter){
 
-   std::vector<std::vector<std::string>> output;
+   std::vector<std::vector<std::string>> output(input.size());
    std::vector<std::string> part;
 
    for (std::string line : input){
