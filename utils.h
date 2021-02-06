@@ -6,6 +6,10 @@
 #include<cmath>
 #include<iostream>
 
+//=======================================================================================================
+// Read input from file
+//=======================================================================================================
+
 // read input file into vector of strings
 std::vector<std::string> read_input(std::string file_name, std::string separator);
 
@@ -15,32 +19,34 @@ std::string read_line(std::string file_name, std::vector<std::string> delimiters
 // read input file into 2D vector or vectors
 std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::vector<std::string> delimiters);
 
-// separate input into multiple vectors according to delimiter spacing
-std::vector<std::vector<std::string>> split_input(std::vector<std::string> input, std::string delimiter);
+//=======================================================================================================
+// Convert vector type
+//=======================================================================================================
 
 // convert strings vector to int
-std::vector<int> input_to_int(std::vector<std::string> input);
+std::vector<int> input_to_int(const std::vector<std::string> &input);
 
 // convert strings vector to long long int
-std::vector<long long int> input_to_llint(std::vector<std::string> input);
+std::vector<long long int> input_to_llint(const std::vector<std::string> &input);
 
 // convert strings vector to double
-std::vector<double> input_to_double(std::vector<std::string> input);
+std::vector<double> input_to_double(const std::vector<std::string> &input);
 
 // convert vec of vec of string to vec of vec of int
-std::vector<std::vector<int>> input_to_int_2D(std::vector<std::vector<std::string>> input);
+std::vector<std::vector<int>> input_to_int_2D(const std::vector<std::vector<std::string>> &input);
 
 // convert vec of vec of string to vec of vec of long long ints
-std::vector<std::vector<long long int>> input_to_llint_2D(std::vector<std::vector<std::string>> input);
+std::vector<std::vector<long long int>> input_to_llint_2D(const std::vector<std::vector<std::string>> &input);
 
-// binary to decimal converter
-int binary_to_decimal( int binary );
-
-// decimal to binary converter
-int decimal_to_binary( int decimal );
+//=======================================================================================================
+// Split functions
+//=======================================================================================================
 
 // split string containing values separated by delimiter into vector of strings
 std::vector<std::string> split(std::string str, std::string delimiter);
+
+// separate input into multiple vectors according to delimiter spacing
+std::vector<std::vector<std::string>> split_input(std::vector<std::string> input, std::string delimiter);
 
 //=======================================================================================================
 // TEMPLATES
@@ -48,6 +54,10 @@ std::vector<std::string> split(std::string str, std::string delimiter);
 
 // calculates the modulus such that negative numbers wrap around
 template <typename T> T mod( T a, T b){ return (b + (a%b)) % b; }
+
+//=======================================================================================================
+// Sum and min/max element in 2D vectors
+//=======================================================================================================
 
 // sum values in column n of 2D square vector
 template <typename T> T sum_col(const std::vector<std::vector<T>> &input, const size_t &n){
@@ -77,21 +87,11 @@ template <typename T> T max_col(const std::vector<std::vector<T>> &input, const 
     return max;
 }
 
-// min value in row n of 2D square vector
-template <typename T> T min_row(const std::vector<std::vector<T>> &input, const size_t &n){
-    T min = input[n][0];
-    for (const T &element : input[n] ){ min = std::min(min,element); }
-    return min;
-}
+//=======================================================================================================
+// Vector manhattan distance
+//=======================================================================================================
 
-// max value in row n of 2D square vector
-template <typename T> T max_row(const std::vector<std::vector<T>> &input, const size_t &n){
-    T max = input[n][0];
-    for (const T &element : input[n] ){ max = std::max(max,element); }
-    return max;
-}
-
-// manhattan distance between two points
+// manhattan distance between two vectors of equal size
 template <typename T> T manhattan(const std::vector<T> &lhs, const std::vector<T> &rhs){
     
     // check that vectors are the same size
@@ -124,6 +124,10 @@ template <typename T> T manhattan(const T &x1, const T &y1, const T &x2=0, const
     return std::abs(x2-x1) + std::abs(y2-y1);
 }
 
+//=======================================================================================================
+// Cyclic container functions
+//=======================================================================================================
+
 // advance iterator cyclicly through container by n
 template<typename It, typename Distance, typename Con>
 constexpr void advance_cyclic(It &it, Distance n, Con &container){
@@ -148,18 +152,9 @@ constexpr It next_cyclic(It it, const Distance &n, Con &container){
     return it;
 }
 
-// checks if a number is prime
-template<typename T> bool is_prime(T n){
-    if (n <= 1){ return false; }
-
-    for (T i=2; i<n; i++){
-        if (n % i == 0){
-            return false;
-        }
-    }
-
-    return true;
-}
+//=======================================================================================================
+// Display to screen functions
+//=======================================================================================================
 
 // display function for 2D grid
 template<typename T> 
