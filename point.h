@@ -1,7 +1,7 @@
-#ifndef POINT_H
-#define POINT_H
+#pragma once
 
 #include<cmath>
+#include<compare> // C++20
 #include<functional>
 
 //================================================================
@@ -14,6 +14,9 @@ struct point{
    point(int x, int y): x(x), y(y){};
    point(const point &p): x(p.x), y(p.y){};
    point(): x(0), y(0){};
+
+   // spaceship operator defines "==","!=",">","<",">=","<="
+   auto operator<=>(const point&) const = default;
 
    point& operator+=(const point &p);
    point& operator-=(const point &p);
@@ -39,25 +42,12 @@ point& point::operator-=(const point &p){
 // Operators
 //================================================================
 
-bool operator==(const point &lhs, const point &rhs){
-   return (lhs.x==rhs.x && lhs.y==rhs.y);
-}
-
-bool operator!=(const point &lhs, const point &rhs){
-   return (lhs.x!=rhs.x || lhs.y!=rhs.y);
-}
-
 point operator+(const point &lhs, const point &rhs){
    return {lhs.x+rhs.x, lhs.y+rhs.y};
 }
 
 point operator-(const point &lhs, const point &rhs){
    return {lhs.x-rhs.x, lhs.y-rhs.y};
-}
-
-bool operator<(const point &lhs, const point &rhs){
-   if (lhs.x==rhs.x){ return lhs.y<rhs.y; }
-   else { return lhs.x<rhs.x; }
 }
 
 //================================================================
@@ -82,5 +72,3 @@ namespace std {
 int manhattan(const point &p1, const point &p2){
     return std::abs(p2.x-p1.x) + std::abs(p2.y-p1.y);
 }
-
-#endif /* POINT_H */
