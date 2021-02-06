@@ -176,7 +176,8 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
 // convert vector of strings to vector of ints
 std::vector<int> input_to_int(const std::vector<std::string> &input){
 
-   std::vector<int> output(input.size());
+   std::vector<int> output;
+   output.reserve(input.size());
    for (const std::string &line : input){ output.push_back(std::stoi(line)); }
 
    return output;
@@ -189,7 +190,7 @@ std::vector<std::vector<int>> input_to_int_2D(const std::vector<std::vector<std:
    size_t size = input.size();
 
    for (size_t i=0; i<size; i++){
-      output[i].resize(input[i].size());
+      output[i].reserve(input[i].size());
 
       for (const std::string &word : input[i]){ output[i].push_back(std::stoi(word)); }
    }
@@ -204,7 +205,7 @@ std::vector<std::vector<long long int>> input_to_llint_2D(const std::vector<std:
    size_t size = input.size();
 
    for (size_t i=0; i<size; i++){
-      output[i].resize(input[i].size());
+      output[i].reserve(input[i].size());
       
       for (const std::string &word : input[i]){ output[i].push_back(std::stoll(word)); }
    }
@@ -215,21 +216,9 @@ std::vector<std::vector<long long int>> input_to_llint_2D(const std::vector<std:
 // convert vector of strings to vector of long long ints
 std::vector<long long int> input_to_llint(const std::vector<std::string> &input){
 
-   std::vector<long long int> output(input.size());
-
+   std::vector<long long int> output;
+   output.reserve(input.size());
    for (const std::string &line : input){ output.push_back(std::stoll(line)); }
-
-   return output;
-}
-
-// convert vector of strings to vector of doubles
-std::vector<double> input_to_double(const std::vector<std::string> &input){
-
-   std::vector<double> output;
-
-   for (unsigned int i=0; i<input.size(); i++){
-      output.push_back(std::stod(input[i]));
-   }
 
    return output;
 }

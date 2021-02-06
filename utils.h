@@ -29,9 +29,6 @@ std::vector<int> input_to_int(const std::vector<std::string> &input);
 // convert strings vector to long long int
 std::vector<long long int> input_to_llint(const std::vector<std::string> &input);
 
-// convert strings vector to double
-std::vector<double> input_to_double(const std::vector<std::string> &input);
-
 // convert vec of vec of string to vec of vec of int
 std::vector<std::vector<int>> input_to_int_2D(const std::vector<std::vector<std::string>> &input);
 
