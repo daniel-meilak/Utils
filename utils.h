@@ -150,15 +150,30 @@ constexpr It next_cyclic(It it, const Distance &n, Con &container){
 }
 
 //=======================================================================================================
-// Display to screen functions
+// Grid functions
 //=======================================================================================================
 
-// display function for 2D grid
-template<typename T> 
-void display(const std::vector<std::vector<T>> &grid){
+// count number of element in grid
+template<typename Grid, typename Ele>
+unsigned long long grid_count(const Grid &grid, const Ele element){
 
-    for (const std::vector<T> &row : grid){
-        for (const T pixel : row){
+    unsigned long long count = 0;
+
+    for (const auto &row : grid){
+        for (const Ele box : row){
+            if (box==element){ count++; }
+        }
+    }
+
+    return count;
+}
+
+// display function for 2D grid
+template<typename Grid> 
+void display(const Grid &grid){
+
+    for (const auto &row : grid){
+        for (const auto pixel : row){
             std::cout << pixel;
         }
         std::cout << std::endl;
