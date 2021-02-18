@@ -75,13 +75,13 @@ template <typename T> T euclidian_dist(const T &x1, const T &y1, const T &x2, co
 // advance iterator cyclicly through container by n
 template<typename It, typename Distance, typename Con>
 constexpr void advance_cyclic(It &it, Distance n, const Con &container){
-    while (dist > 0){
-        --dist;
+    while (n > 0){
+        --n;
         if (it == std::next(container.eng(),-1)){ it = container.begin(); }
         else { it++; }
     }
-    while (dist < 0){
-        ++dist;
+    while (n < 0){
+        ++n;
         if (it == container.begin()){ it = std::next(container.end(),-1); }
         else { it--; }
     }
