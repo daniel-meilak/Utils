@@ -26,13 +26,13 @@ struct point{
 // Member functions
 //================================================================
 
-point& point::operator+=(const point &p){
+point &point::operator+=(const point &p){
    this->x += p.x;
    this->y += p.y;
    return *this;
 }
 
-point& point::operator-=(const point &p){
+point &point::operator-=(const point &p){
    this->x -= p.x;
    this->y -= p.y;
    return *this;
