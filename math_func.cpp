@@ -96,3 +96,15 @@ std::string shunting_yard( std::vector<std::string> &infix, const std::string op
     return output.str();
 }
 
+// checks if a number is prime
+template<typename T> bool is_prime(T n){
+    if (n <= 1){ return false; }
+
+    for (T i=2; i<n; i++){
+        if (n % i == 0){
+            return false;
+        }
+    }
+
+    return true;
+}
