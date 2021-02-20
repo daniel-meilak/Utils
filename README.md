@@ -6,4 +6,4 @@ The Utils.h and Utils.cpp form the bulk of this repository, containing functions
 
 point.h offers a simple 2D point structure as well as various functions for comparison, hashing and distance calculations.
 
-The math_func.cpp file offers implementations of various algorithms, often adjusted from those on [Rosetta Code](www.rosettacode.org).
+The math_func.h header offers implementations of various algorithms, often adjusted from those on [Rosetta Code](www.rosettacode.org).
