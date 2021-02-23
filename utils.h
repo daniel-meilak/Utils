@@ -1,5 +1,4 @@
-#ifndef UTILS_H
-#define UTILS_H
+#pragma once
 
 #include<vector>
 #include<string>
@@ -178,6 +177,4 @@ void display(const Grid &grid){
         }
         std::cout << std::endl;
     }
-} 
-
-#endif /* UTILS_H */
+}
