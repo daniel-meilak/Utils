@@ -122,7 +122,7 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
    std::ifstream input_file (file_name);
 
    // check that file exists
-   if ( !(input_file.is_open()) ){
+   if (!input_file.is_open()){
       std::cout << "Could not open file " << file_name << std::endl;
       std::exit(EXIT_FAILURE);
    }
