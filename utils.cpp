@@ -109,6 +109,11 @@ std::string read_line(std::string file_name, std::vector<std::string> delimiters
 // and output a vector of vector of strings called "input"
 std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::vector<std::string> delimiters){
 
+   if (delimiters.empty()){
+      std::cout << "No delimiters provided. Use read_input instead of read_input_2D" << std::endl;
+      std::exit(EXIT_FAILURE);
+   }
+
    // output vector of strings
    std::vector<std::vector<std::string>> input;
 
@@ -130,42 +135,35 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
 
       line_length = line.size();
 
-      if (delimiters.empty()){
-         std::cout << "Use read_input instead of read_input_2D" << std::endl;
-         std::exit(EXIT_FAILURE);
-      }
-      else {
-         // loop through contents of line
-         for ( size_t read_pos=0; read_pos<line_length; read_pos++ ){
+      // loop through contents of line
+      for ( size_t read_pos=0; read_pos<line_length; read_pos++ ){
 
-            for (size_t i=0; i<delims; i++){
-               // if next characters match possible delimiters, skip delimiter and add to temp_vector
-               if ( line.substr(read_pos, delimiters[i].size()) == delimiters[i]){
-                  read_pos += delimiters[i].size()-1;
-                  // in case delimiters follow each other
-                  if ( temp_val != "" ){
-                     temp_vector.push_back(temp_val);
-                  }
-                  temp_val.clear();
-                  break;
+         for (size_t i=0; i<delims; i++){
+            // if next characters match possible delimiters, skip delimiter and add to temp_vector
+            if ( line.substr(read_pos, delimiters[i].size()) == delimiters[i]){
+               read_pos += delimiters[i].size()-1;
+               // in case delimiters follow each other
+               if ( temp_val != "" ){
+                  temp_vector.push_back(temp_val);
                }
-               // if next character does not match any delimiter, add to temp_val
-               else {
-                  if ( i == delimiters.size()-1 ){
-                     temp_val.push_back(line[read_pos]);
-                  }
+               temp_val.clear();
+               break;
+            }
+            // if next character does not match any delimiter, add to temp_val
+            else {
+               if ( i == delimiters.size()-1 ){
+                  temp_val.push_back(line[read_pos]);
                }
             }
          }
-         // push_back last value (if not empty)
-         if ( temp_val != ""){
-            temp_vector.push_back(temp_val);
-         }
-         // add vector to input
-         input.push_back(temp_vector);
-         temp_vector.clear();
-         temp_val.clear();
       }
+      // push_back last value (if not empty)
+      if (temp_val != ""){ temp_vector.push_back(temp_val); }
+
+      // add vector to input
+      input.push_back(temp_vector);
+      temp_vector.clear();
+      temp_val.clear();
    }
 
    input_file.close();
