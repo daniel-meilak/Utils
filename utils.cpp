@@ -143,9 +143,7 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
             if ( line.substr(read_pos, delimiters[i].size()) == delimiters[i]){
                read_pos += delimiters[i].size()-1;
                // in case delimiters follow each other
-               if ( temp_val != "" ){
-                  temp_vector.push_back(temp_val);
-               }
+               if ( temp_val != "" ){ temp_vector.push_back(temp_val); }
                temp_val.clear();
                break;
             }
