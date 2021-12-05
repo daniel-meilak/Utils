@@ -207,30 +207,31 @@ std::vector<Int> input_to_int(const std::vector<std::string> &input){
 }
 
 // convert 2D vector of vector of strings to vector of vector of ints
-std::vector<std::vector<int>> input_to_int_2D(const std::vector<std::vector<std::string>> &input){
+template <typename Int>
+std::vector<std::vector<Int>> input_to_int_2D(const std::vector<std::vector<std::string>> &input){
 
-   std::vector<std::vector<int>> output(input.size());
-   size_t size = input.size();
-
-   for (size_t i=0; i<size; i++){
-      output[i].reserve(input[i].size());
-
-      for (const std::string &word : input[i]){ output[i].push_back(std::stoi(word)); }
-   }
-
-   return output;
-}
-
-// convert 2D vector of vector of strings to vector of vector of long long ints
-std::vector<std::vector<long long int>> input_to_llint_2D(const std::vector<std::vector<std::string>> &input){
-
-   std::vector<std::vector<long long int>> output(input.size());
-   size_t size = input.size();
+   const size_t& size = input.size();
+   std::vector<std::vector<Int>> output(size);
 
    for (size_t i=0; i<size; i++){
+
+      Int value;
       output[i].reserve(input[i].size());
-      
-      for (const std::string &word : input[i]){ output[i].push_back(std::stoll(word)); }
+
+      for (const std::string &word : input[i]){
+         auto result = std::from_chars(word.data(), word.data()+word.size(), value);
+
+         if (result.ec == std::errc::invalid_argument){
+            std::cerr << "Non-integer value in input_to_int\n";
+            std::exit(EXIT_FAILURE);
+         }  
+         else if (result.ec == std::errc::result_out_of_range){
+            std::cerr << "Integer type too small in input_to_int\n";
+            std::exit(EXIT_FAILURE);
+         }
+         
+         output[i].push_back(value);
+      }
    }
 
    return output;
