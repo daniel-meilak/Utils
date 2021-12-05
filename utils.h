@@ -181,7 +181,7 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
 //=======================================================================================================
 
 // convert vector of strings to vector of ints
-template <typename Int>
+template <typename Int = int>
 std::vector<Int> input_to_int(const std::vector<std::string> &input){
 
    std::vector<Int> output;
@@ -207,7 +207,7 @@ std::vector<Int> input_to_int(const std::vector<std::string> &input){
 }
 
 // convert 2D vector of vector of strings to vector of vector of ints
-template <typename Int>
+template <typename Int = int>
 std::vector<std::vector<Int>> input_to_int_2D(const std::vector<std::vector<std::string>> &input){
 
    const size_t& size = input.size();

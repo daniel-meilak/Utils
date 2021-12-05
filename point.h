@@ -8,11 +8,12 @@
 // Struct
 //================================================================
 
+template< typename Int = int >
 struct point{
-   int x,y;
+   Int x,y;
 
-   point(int x, int y): x(x), y(y){};
-   point(const point &p): x(p.x), y(p.y){};
+   point(Int x, Int y): x(x), y(y){};
+   point(const point<Int> &p): x(p.x), y(p.y){};
    point(): x(0), y(0){};
 
    // spaceship operator defines "==","!=",">","<",">=","<="
@@ -20,21 +21,39 @@ struct point{
 
    point& operator+=(const point &p);
    point& operator-=(const point &p);
+   point& operator*=(const Int   &i);
+   point& operator/=(const Int   &i);
 };
 
 //================================================================
 // Member functions
 //================================================================
 
-point &point::operator+=(const point &p){
+template< typename Int >
+point<Int> &point<Int>::operator+=(const point &p){
    this->x += p.x;
    this->y += p.y;
    return *this;
 }
 
-point &point::operator-=(const point &p){
+template< typename Int >
+point<Int> &point<Int>::operator-=(const point &p){
    this->x -= p.x;
    this->y -= p.y;
+   return *this;
+}
+
+template< typename Int >
+point<Int> &point<Int>::operator*=(const Int &i){
+   this->x *= i;
+   this->y *= i;
+   return *this;
+}
+
+template< typename Int >
+point<Int> &point<Int>::operator/=(const Int &i){
+   this->x /= i;
+   this->y /= i;
    return *this;
 }
 
@@ -42,11 +61,13 @@ point &point::operator-=(const point &p){
 // Operators
 //================================================================
 
-point operator+(const point &lhs, const point &rhs){
+template< typename Int >
+point<Int> operator+(const point<Int> &lhs, const point<Int> &rhs){
    return {lhs.x+rhs.x, lhs.y+rhs.y};
 }
 
-point operator-(const point &lhs, const point &rhs){
+template< typename Int >
+point<Int> operator-(const point<Int> &lhs, const point<Int> &rhs){
    return {lhs.x-rhs.x, lhs.y-rhs.y};
 }
 
@@ -55,11 +76,11 @@ point operator-(const point &lhs, const point &rhs){
 //================================================================
 
 namespace std {
-   template <> struct hash<point> {
-      typedef point argument_type;
+   template < typename Int > struct hash<point<Int>> {
+      typedef point<Int> argument_type;
       typedef std::size_t result_type;
-      std::size_t operator()(const point& p) const noexcept {
-         return std::hash<int>()(p.x ^ (p.y << 4));
+      std::size_t operator()(const point<Int>& p) const noexcept {
+         return std::hash<Int>()(p.x ^ (p.y << 4));
       }
    };
 }
@@ -69,6 +90,7 @@ namespace std {
 //================================================================
 
 // manhattan distance between two points
-int manhattan(const point &p1, const point &p2){
+template< typename Int >
+Int manhattan(const point<Int> &p1, const point<Int> &p2){
     return std::abs(p2.x-p1.x) + std::abs(p2.y-p1.y);
 }
