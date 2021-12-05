@@ -13,16 +13,16 @@ struct point{
    Int x,y;
 
    point(Int x, Int y): x(x), y(y){};
-   point(const point<Int> &p): x(p.x), y(p.y){};
+   point(const point<Int>& p): x(p.x), y(p.y){};
    point(): x(0), y(0){};
 
    // spaceship operator defines "==","!=",">","<",">=","<="
    auto operator<=>(const point&) const = default;
 
-   point& operator+=(const point &p);
-   point& operator-=(const point &p);
-   point& operator*=(const Int   &i);
-   point& operator/=(const Int   &i);
+   point& operator+=(const point& p);
+   point& operator-=(const point& p);
+   point& operator*=(const Int& i);
+   point& operator/=(const Int& i);
 };
 
 //================================================================
