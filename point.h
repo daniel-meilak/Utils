@@ -9,49 +9,50 @@
 //================================================================
 
 template< typename Int = int >
-struct point{
+struct point_t{
    Int x,y;
 
-   point(Int x, Int y): x(x), y(y){};
-   point(const point<Int>& p): x(p.x), y(p.y){};
-   point(): x(0), y(0){};
+   point_t(Int x, Int y): x(x), y(y){};
+   point_t(const point_t<Int>& p): x(p.x), y(p.y){};
+   point_t(): x(0), y(0){};
 
    // spaceship operator defines "==","!=",">","<",">=","<="
-   auto operator<=>(const point&) const = default;
+   auto operator<=>(const point_t&) const = default;
 
-   point& operator+=(const point& p);
-   point& operator-=(const point& p);
-   point& operator*=(const Int& i);
-   point& operator/=(const Int& i);
+   point_t& operator+=(const point_t& p);
+   point_t& operator-=(const point_t& p);
+   point_t& operator*=(const Int& i);
+   point_t& operator/=(const Int& i);
 };
+using point = point_t<int>;
 
 //================================================================
 // Member functions
 //================================================================
 
 template< typename Int >
-point<Int> &point<Int>::operator+=(const point &p){
+point_t<Int> &point_t<Int>::operator+=(const point_t &p){
    this->x += p.x;
    this->y += p.y;
    return *this;
 }
 
 template< typename Int >
-point<Int> &point<Int>::operator-=(const point &p){
+point_t<Int> &point_t<Int>::operator-=(const point_t &p){
    this->x -= p.x;
    this->y -= p.y;
    return *this;
 }
 
 template< typename Int >
-point<Int> &point<Int>::operator*=(const Int &i){
+point_t<Int> &point_t<Int>::operator*=(const Int &i){
    this->x *= i;
    this->y *= i;
    return *this;
 }
 
 template< typename Int >
-point<Int> &point<Int>::operator/=(const Int &i){
+point_t<Int> &point_t<Int>::operator/=(const Int &i){
    this->x /= i;
    this->y /= i;
    return *this;
@@ -62,12 +63,12 @@ point<Int> &point<Int>::operator/=(const Int &i){
 //================================================================
 
 template< typename Int >
-point<Int> operator+(const point<Int> &lhs, const point<Int> &rhs){
+point_t<Int> operator+(const point_t<Int> &lhs, const point_t<Int> &rhs){
    return {lhs.x+rhs.x, lhs.y+rhs.y};
 }
 
 template< typename Int >
-point<Int> operator-(const point<Int> &lhs, const point<Int> &rhs){
+point_t<Int> operator-(const point_t<Int> &lhs, const point_t<Int> &rhs){
    return {lhs.x-rhs.x, lhs.y-rhs.y};
 }
 
@@ -76,10 +77,10 @@ point<Int> operator-(const point<Int> &lhs, const point<Int> &rhs){
 //================================================================
 
 namespace std {
-   template < typename Int > struct hash<point<Int>> {
-      typedef point<Int> argument_type;
+   template < typename Int > struct hash<point_t<Int>> {
+      typedef point_t<Int> argument_type;
       typedef std::size_t result_type;
-      std::size_t operator()(const point<Int>& p) const noexcept {
+      std::size_t operator()(const point_t<Int>& p) const noexcept {
          return std::hash<Int>()(p.x ^ (p.y << 4));
       }
    };
@@ -89,8 +90,8 @@ namespace std {
 // Other functions
 //================================================================
 
-// manhattan distance between two points
+// manhattan distance between two point_ts
 template< typename Int >
-Int manhattan(const point<Int> &p1, const point<Int> &p2){
+Int manhattan(const point_t<Int> &p1, const point_t<Int> &p2){
     return std::abs(p2.x-p1.x) + std::abs(p2.y-p1.y);
 }
