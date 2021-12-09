@@ -15,11 +15,12 @@
 //=======================================================================================================
 
 // Function to read input file "file_name" containing values separated by
-// "separator" and output a vector of strings called "input"
-std::vector<std::string> read_input(std::string file_name, std::string separator){
+// "separator" and output a Cont(vector) of strings called "input"
+template <template <typename> typename Cont = std::vector>
+Cont<std::string> read_input(std::string file_name, std::string separator){
 
    // output vector of strings
-   std::vector<std::string> input;
+   Cont<std::string> input;
 
    // read input into "line"
    std::string line;
@@ -113,8 +114,9 @@ std::string read_line(std::string file_name, std::vector<std::string> delimiters
 }
 
 // Function to read input file "file_name" containing lines split by multiple delimiters
-// and output a vector of vector of strings called "input"
-std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::vector<std::string> delimiters){
+// and output a Cont1(vector) of Cont2(vector) of strings called "input"
+template <template <typename> typename Cont1 = std::vector, template <typename> typename Cont2 = std::vector >
+Cont1<Cont2<std::string>> read_input_2D(std::string file_name, std::vector<std::string> delimiters){
 
    if (delimiters.empty()){
       std::cout << "No delimiters provided. Use read_input instead of read_input_2D" << std::endl;
@@ -122,7 +124,7 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
    }
 
    // output vector of strings
-   std::vector<std::vector<std::string>> input;
+   Cont1<Cont2<std::string>> input;
 
    // read input into "line"
    std::string line;
@@ -137,7 +139,7 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
    size_t line_length;
    size_t delims = delimiters.size();
    std::string temp_val;
-   std::vector<std::string> temp_vector;
+   Cont2<std::string> temp_vector;
    while ( getline(input_file, line) ){
 
       line_length = line.size();
@@ -181,10 +183,10 @@ std::vector<std::vector<std::string>> read_input_2D(std::string file_name, std::
 //=======================================================================================================
 
 // convert vector of strings to vector of ints
-template <typename Int = int>
-std::vector<Int> input_to_int(const std::vector<std::string> &input){
+template <template <typename> typename Cont = std::vector, typename Int = int>
+Cont<Int> input_to_int(const Cont<std::string> &input){
 
-   std::vector<Int> output;
+   Cont<Int> output;
    Int value;
    output.reserve(input.size());
    
@@ -207,11 +209,11 @@ std::vector<Int> input_to_int(const std::vector<std::string> &input){
 }
 
 // convert 2D vector of vector of strings to vector of vector of ints
-template <typename Int = int>
-std::vector<std::vector<Int>> input_to_int_2D(const std::vector<std::vector<std::string>> &input){
+template <template <typename> typename Cont1 = std::vector, template <typename> typename Cont2 = std::vector, typename Int = int>
+Cont1<Cont2<Int>> input_to_int_2D(const Cont1<Cont2<std::string>> &input){
 
    const size_t& size = input.size();
-   std::vector<std::vector<Int>> output(size);
+   Cont1<Cont2<Int>> output(size);
 
    for (size_t i=0; i<size; i++){
 
@@ -291,23 +293,23 @@ template <typename T> T mod( T a, T b){ return (b + (a%b)) % b; }
 
 // sum values in column n of 2D square vector
 template <typename T> T sum_col(const std::vector<std::vector<T>> &input, const size_t &n){
-    T sum = 0;
-    for (const std::vector<T> &line : input ){ sum += line[n]; }
-    return sum;
+   T sum = 0;
+   for (const std::vector<T> &line : input ){ sum += line[n]; }
+   return sum;
 }
 
 // sum values in row n of 2D square vector
 template <typename T> T sum_row(const std::vector<std::vector<T>> &input, const size_t &n){
-    T sum = 0;
-    for (const T &element : input[n] ){ sum += element; }
-    return sum;
+   T sum = 0;
+   for (const T &element : input[n] ){ sum += element; }
+   return sum;
 }
 
 // min value in column n of 2D square vector
 template <typename T> T min_col(const std::vector<std::vector<T>> &input, const size_t &n){
-    T min = input[0][n];
-    for (const std::vector<T> &line : input ){ min = std::min(min,line[n]); }
-    return min;
+   T min = input[0][n];
+   for (const std::vector<T> &line : input ){ min = std::min(min,line[n]); }
+   return min;
 }
 
 // max value in column n of 2D square vector
@@ -324,34 +326,34 @@ template <typename T> T max_col(const std::vector<std::vector<T>> &input, const 
 // manhattan distance between two vectors of equal size
 template <typename T> T manhattan(const std::vector<T> &lhs, const std::vector<T> &rhs){
     
-    // check that vectors are the same size
-    if (lhs.size()!=rhs.size()){
-        std::cout << "Vectors must be equal size." << std::endl;
-        std::exit(EXIT_FAILURE);
-    }
+   // check that vectors are the same size
+   if (lhs.size()!=rhs.size()){
+      std::cout << "Vectors must be equal size." << std::endl;
+      std::exit(EXIT_FAILURE);
+   }
 
-    T distance = 0;
+   T distance = 0;
 
-    const size_t size = lhs.size();
-    for (size_t i=0; i<size; i++){ distance+= std::abs(rhs[i]-lhs[i]); }
+   const size_t size = lhs.size();
+   for (size_t i=0; i<size; i++){ distance+= std::abs(rhs[i]-lhs[i]); }
 
-    return distance;
+   return distance;
 }
 
 // manhattan distance to origin
 template <typename T> T manhattan(const std::vector<T> &point){
 
-    T distance = 0;
+   T distance = 0;
 
-    const size_t size = point.size();
-    for (size_t i=0; i<size; i++){ distance+= std::abs(point[i]); }
+   const size_t size = point.size();
+   for (size_t i=0; i<size; i++){ distance+= std::abs(point[i]); }
 
-    return distance;
+   return distance;
 }
 
 // manhattan distance between two points (2D)
 template <typename T> T manhattan(const T &x1, const T &y1, const T &x2=0, const T &y2=0){
-    return std::abs(x2-x1) + std::abs(y2-y1);
+   return std::abs(x2-x1) + std::abs(y2-y1);
 }
 
 //=======================================================================================================
@@ -361,25 +363,25 @@ template <typename T> T manhattan(const T &x1, const T &y1, const T &x2=0, const
 // advance iterator cyclicly through container by n
 template<typename It, typename Distance, typename Con>
 constexpr void advance_cyclic(It &it, Distance n, Con &container){
-    auto dist = typename std::iterator_traits<It>::difference_type(n);
-    while (dist > 0){
-        --dist;
-        if (it == std::next(container.end(),-1)){ it = container.begin(); }
-        else { it++; }
-    }
-    while (n < 0){
-        ++n;
-        if (it == container.begin()){ it = std::next(container.end(),-1); }
-        else { it--; }
-    }
+   auto dist = typename std::iterator_traits<It>::difference_type(n);
+   while (dist > 0){
+      --dist;
+      if (it == std::next(container.end(),-1)){ it = container.begin(); }
+      else { it++; }
+   }
+   while (n < 0){
+      ++n;
+      if (it == container.begin()){ it = std::next(container.end(),-1); }
+      else { it--; }
+   }
 }
 
 // return iterator n steps ahead/behind, cyclicly in container
 template<typename It, typename Distance, typename Con>
 constexpr It next_cyclic(It it, const Distance &n, Con &container){
-    advance_cyclic(it, n, container);
+   advance_cyclic(it, n, container);
 
-    return it;
+   return it;
 }
 
 //=======================================================================================================
@@ -390,25 +392,25 @@ constexpr It next_cyclic(It it, const Distance &n, Con &container){
 template<typename Grid, typename Ele>
 unsigned long long grid_count(const Grid &grid, const Ele element){
 
-    unsigned long long count = 0;
+   unsigned long long count = 0;
 
-    for (const auto &row : grid){
-        for (const Ele box : row){
-            if (box==element){ count++; }
-        }
-    }
+   for (const auto &row : grid){
+      for (const Ele box : row){
+         if (box==element){ count++; }
+      }
+   }
 
-    return count;
+   return count;
 }
 
 // display function for 2D grid
 template<typename Grid> 
 void display(const Grid &grid){
 
-    for (const auto &row : grid){
-        for (const auto pixel : row){
-            std::cout << pixel;
-        }
-        std::cout << std::endl;
-    }
+   for (const auto &row : grid){
+      for (const auto pixel : row){
+         std::cout << pixel;
+      }
+      std::cout << std::endl;
+   }
 }
