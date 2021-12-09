@@ -16,7 +16,7 @@
 
 // Function to read input file "file_name" containing values separated by
 // "separator" and output a Cont(vector) of strings called "input"
-template <template <typename> typename Cont = std::vector>
+template <template <typename...> typename Cont = std::vector>
 Cont<std::string> read_input(std::string file_name, std::string separator){
 
    // output vector of strings
@@ -115,7 +115,7 @@ std::string read_line(std::string file_name, std::vector<std::string> delimiters
 
 // Function to read input file "file_name" containing lines split by multiple delimiters
 // and output a Cont1(vector) of Cont2(vector) of strings called "input"
-template <template <typename> typename Cont1 = std::vector, template <typename> typename Cont2 = std::vector >
+template <template <typename...> typename Cont1 = std::vector, template <typename...> typename Cont2 = std::vector >
 Cont1<Cont2<std::string>> read_input_2D(std::string file_name, std::vector<std::string> delimiters){
 
    if (delimiters.empty()){
@@ -183,8 +183,8 @@ Cont1<Cont2<std::string>> read_input_2D(std::string file_name, std::vector<std::
 //=======================================================================================================
 
 // convert vector of strings to vector of ints
-template <template <typename> typename Cont = std::vector, typename Int = int>
-Cont<Int> input_to_int(const Cont<std::string> &input){
+template <template <typename...> typename Cont = std::vector, typename Int = int>
+Cont<Int> input_to_int(Cont<std::string> input){
 
    Cont<Int> output;
    Int value;
@@ -209,7 +209,7 @@ Cont<Int> input_to_int(const Cont<std::string> &input){
 }
 
 // convert 2D vector of vector of strings to vector of vector of ints
-template <template <typename> typename Cont1 = std::vector, template <typename> typename Cont2 = std::vector, typename Int = int>
+template <template <typename...> typename Cont1 = std::vector, template <typename...> typename Cont2 = std::vector, typename Int = int>
 Cont1<Cont2<Int>> input_to_int_2D(const Cont1<Cont2<std::string>> &input){
 
    const size_t& size = input.size();
