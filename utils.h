@@ -463,6 +463,18 @@ void display(const Grid &grid){
       for (const auto pixel : row){
          std::cout << pixel;
       }
-      std::cout << std::endl;
+      std::cout << '\n';
+   }
+}
+
+template <template <typename...> typename Cont2 = std::vector, template <typename...> typename Cont1 = std::vector >
+void display(const Cont1<Cont2<bool>> &grid){
+
+   for (const auto &row : grid){
+      for (const auto pixel : row){
+         if (pixel){ std::cout << '#'; }
+         else      { std::cout << '.'; }
+      }
+      std::cout << '\n';
    }
 }
