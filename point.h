@@ -13,7 +13,7 @@ struct point_t{
    Int x,y;
 
    point_t(Int x, Int y): x(x), y(y){};
-   point_t(const point_t<Int>& p): x(p.x), y(p.y){};
+   point_t(const point_t<Int>& p) = default;
    point_t(): x(0), y(0){};
 
    // spaceship operator defines "==","!=",">","<",">=","<="
