@@ -67,7 +67,7 @@ Cont<std::string> read_input(std::string file_name, std::string separator){
 
 // Function to read input file "file_name" containing a single line of characters
 // and remove any strings in "delimiters"
-std::string read_line(std::string file_name, std::vector<std::string> delimiters){
+std::string read_line(std::string file_name, std::vector<std::string> delimiters = {}){
 
    // output
    std::string output;
