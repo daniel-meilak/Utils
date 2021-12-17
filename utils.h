@@ -467,6 +467,7 @@ void display(const Grid &grid){
    }
 }
 
+// specialisation of display function for 2D grid<bool>
 template <template <typename...> typename Cont2 = std::vector, template <typename...> typename Cont1 = std::vector >
 void display(const Cont1<Cont2<bool>> &grid){
 
@@ -477,4 +478,14 @@ void display(const Cont1<Cont2<bool>> &grid){
       }
       std::cout << '\n';
    }
+}
+
+// print all values in a Cont(vector)
+template<typename Cont>
+void print_vector(const Cont& cont){
+
+   for (const auto& element : cont){
+      std::cout << element << " ";
+   }
+   std::cout << '\n';
 }
