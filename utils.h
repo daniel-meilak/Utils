@@ -482,10 +482,10 @@ void display(const Cont1<Cont2<bool>> &grid){
 
 // print all values in a Cont(vector)
 template<typename Cont>
-void print_vector(const Cont& cont){
+void print_vector(const Cont& cont, std::string delimiter = " "){
 
    for (const auto& element : cont){
-      std::cout << element << " ";
+      std::cout << element << delimiter;
    }
    std::cout << '\n';
 }
