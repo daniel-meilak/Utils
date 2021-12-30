@@ -17,7 +17,7 @@
 // Function to read input file "file_name" containing values separated by
 // "separator" and output a Cont(vector) of strings called "input"
 template <template <typename...> typename Cont = std::vector>
-Cont<std::string> read_input(std::string file_name, std::string separator){
+Cont<std::string> read_input(std::string file_name, std::string separator = ""){
 
    // output vector of strings
    Cont<std::string> input;
