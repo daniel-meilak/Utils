@@ -2,7 +2,6 @@
 
 #include<charconv>
 #include<cmath>
-#include<concepts>
 #include<cstdlib>
 #include<fstream>
 #include<iostream>
