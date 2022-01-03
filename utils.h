@@ -17,7 +17,7 @@
 // Function to read input file "file_name" containing values separated by
 // "separator" and output a Cont(vector) of strings called "input"
 template <template <typename...> typename Cont = std::vector>
-Cont<std::string> read_input(std::string file_name, std::string separator = ""){
+Cont<std::string> read_input(std::string file_name, std::vector<std::string> delimiters = {}){
 
    // output vector of strings
    Cont<std::string> input;
@@ -34,28 +34,36 @@ Cont<std::string> read_input(std::string file_name, std::string separator = ""){
 
    size_t line_length;
    std::string temp_val;
+   size_t delims = delimiters.size();
+
    while ( getline(input_file, line) ){
 
       line_length = line.size();
 
-      if ( separator == "" ){ input.push_back(line); }
+      if ( delimiters.empty() ){ input.push_back(line); }
       else {
          // loop through contents of line
          for ( size_t read_pos=0; read_pos<line_length; read_pos++ ){
 
-            // if next characters != separator, add next char to temp_val
-            if ( line.substr(read_pos, separator.size()) != separator ){
-               temp_val.push_back(line[read_pos]);
-            }
-            // else add the value to input and skip the separator
-            else {
-               read_pos += separator.size()-1;
-               input.push_back(temp_val);
-               temp_val.clear();
+            for (size_t i=0; i<delims; i++){
+               
+               // if next characters != any delimiter, add next char to temp_val
+               if ( line.substr(read_pos, delimiters[i].size()) == delimiters[i] ){
+                  read_pos += delimiters[i].size()-1;
+                  // in case delimiters follow each other
+                  if ( !temp_val.empty() ){ input.push_back(temp_val); }
+                  temp_val.clear();
+                  break;
+               }
+               else {
+                  if ( i == delimiters.size()-1 ){
+                     temp_val.push_back(line[read_pos]);
+                  }
+               }
             }
          }
          // push_back last value
-         input.push_back(temp_val);
+         if (!temp_val.empty()){ input.push_back(temp_val); }
          temp_val.clear();
       }
    }
@@ -152,7 +160,7 @@ Cont1<Cont2<std::string>> read_input_2D(std::string file_name, std::vector<std::
             if ( line.substr(read_pos, delimiters[i].size()) == delimiters[i]){
                read_pos += delimiters[i].size()-1;
                // in case delimiters follow each other
-               if ( temp_val != "" ){ temp_vector.push_back(temp_val); }
+               if ( !temp_val.empty() ){ temp_vector.push_back(temp_val); }
                temp_val.clear();
                break;
             }
@@ -165,7 +173,7 @@ Cont1<Cont2<std::string>> read_input_2D(std::string file_name, std::vector<std::
          }
       }
       // push_back last value (if not empty)
-      if (temp_val != ""){ temp_vector.push_back(temp_val); }
+      if (!temp_val.empty()){ temp_vector.push_back(temp_val); }
 
       // add vector to input
       input.push_back(temp_vector);
