@@ -269,7 +269,7 @@ Cont<Int> input_to_int(Cont<std::string, std::allocator<std::string>> input){
 
 // convert 2D vector of vector of strings to vector of vector of ints
 template <typename Int = int, template <typename...> typename Cont2 = std::vector, template <typename...> typename Cont1 = std::vector>
-Cont1<Cont2<Int>> input_to_int_2D(const Cont1<Cont2<std::string, std::allocator<std::string>>> &input){
+Cont1<Cont2<Int>> input_to_int_2D(const Cont1<Cont2<std::string,std::allocator<std::string>>,std::allocator<std::vector<std::string,std::allocator<std::string>>>> &input){
 
    const size_t& size = input.size();
    Cont1<Cont2<Int>> output(size);
