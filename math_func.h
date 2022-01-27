@@ -53,7 +53,7 @@ template <typename T> T  chinese_remainder( std::vector<T> n, std::vector<T> a )
 std::string shunting_yard( std::vector<std::string> &infix, const std::string operators ){
 
     std::stringstream output;
-    std::stack<size_t> stack;
+    std::stack<long long> stack;
 
     for ( std::string token : infix){
 
@@ -67,7 +67,7 @@ std::string shunting_yard( std::vector<std::string> &infix, const std::string op
                 size_t prec_2 = stack.top()/2;
                 size_t prec_1 = idx/2;
                 if (prec_2 > prec_1 || (prec_2 == prec_1 && c != '^')){
-                    output << operators[stack.top()] << ' ';
+                    output << operators[static_cast<size_t>(stack.top())] << ' ';
                     stack.pop();
                 }
                 else break;
