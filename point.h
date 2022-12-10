@@ -8,7 +8,7 @@
 // Struct
 //================================================================
 
-template< typename Int = int >
+template <typename Int = int>
 struct point_t{
    Int x,y;
 
@@ -30,28 +30,28 @@ using point = point_t<int>;
 // Member functions
 //================================================================
 
-template< typename Int >
+template <typename Int>
 point_t<Int> &point_t<Int>::operator+=(const point_t &p){
    this->x += p.x;
    this->y += p.y;
    return *this;
 }
 
-template< typename Int >
+template <typename Int>
 point_t<Int> &point_t<Int>::operator-=(const point_t &p){
    this->x -= p.x;
    this->y -= p.y;
    return *this;
 }
 
-template< typename Int >
+template <typename Int>
 point_t<Int> &point_t<Int>::operator*=(const Int &i){
    this->x *= i;
    this->y *= i;
    return *this;
 }
 
-template< typename Int >
+template <typename Int>
 point_t<Int> &point_t<Int>::operator/=(const Int &i){
    this->x /= i;
    this->y /= i;
@@ -62,12 +62,12 @@ point_t<Int> &point_t<Int>::operator/=(const Int &i){
 // Operators
 //================================================================
 
-template< typename Int >
+template <typename Int>
 point_t<Int> operator+(const point_t<Int> &lhs, const point_t<Int> &rhs){
    return {lhs.x+rhs.x, lhs.y+rhs.y};
 }
 
-template< typename Int >
+template <typename Int>
 point_t<Int> operator-(const point_t<Int> &lhs, const point_t<Int> &rhs){
    return {lhs.x-rhs.x, lhs.y-rhs.y};
 }
@@ -77,9 +77,9 @@ point_t<Int> operator-(const point_t<Int> &lhs, const point_t<Int> &rhs){
 //================================================================
 
 namespace std {
-   template < typename Int > struct hash<point_t<Int>> {
-      typedef point_t<Int> argument_type;
-      typedef std::size_t result_type;
+   template <typename Int>
+   struct hash<point_t<Int>> {
+
       std::size_t operator()(const point_t<Int>& p) const noexcept {
          return std::hash<Int>()(p.x ^ (p.y << 4));
       }
@@ -91,7 +91,13 @@ namespace std {
 //================================================================
 
 // manhattan distance between two point_ts
-template< typename Int >
+template <typename Int>
 Int manhattan(const point_t<Int> &p1, const point_t<Int> &p2){
-    return std::abs(p2.x-p1.x) + std::abs(p2.y-p1.y);
+   return std::abs(p2.x-p1.x) + std::abs(p2.y-p1.y);
+}
+
+// chebyshev distance between two point_ts (diagonal is equal to vert/hori)
+template <typename Int>
+Int chebyshev(const point_t<Int> &p1, const point_t<Int> &p2){
+   return std::max(std::abs(p2.x-p1.x), std::abs(p2.y-p1.y));
 }
