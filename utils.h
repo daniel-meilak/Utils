@@ -487,6 +487,18 @@ void display(const Cont1<Cont2<bool>> &grid){
    }
 }
 
+// display a 1D grid with given width and height
+template <typename Grid, typename Int>
+void display1D(const Grid& grid, Int width, Int height){
+
+   for (Int i=0; i<height; i++){
+      for (Int j=0; j<width; j++){
+         std::cout << grid[i*width + j];
+      }
+      std::cout << std::endl;
+   }
+}
+
 // print all values in a Cont(vector)
 template<typename Cont>
 void print_vector(const Cont& cont, std::string delimiter = " "){
