@@ -1,5 +1,6 @@
 #pragma once
 
+#include<cstddef>
 #include<iostream>
 #include<iterator>
 #include<map>
@@ -10,6 +11,14 @@ struct interval_map_t{
     void insert(Int min, Int max);
 
     void print() const;
+
+    // iterate through intervals
+    auto begin() { return map.begin();  }
+    auto end()   { return map.end();    }
+    auto cbegin(){ return map.cbegin(); }
+    auto cend()  { return map.cend();   }
+
+    std::size_t size(){ return map.size(); }
 
 private:
     std::map<Int, Int> map;
@@ -39,7 +48,7 @@ void interval_map_t<Int>::insert(Int min, Int max){
         if (prev_it->second > max){ return; }
 
         // prev_it intersects
-        if (prev_it->second > min){ min = prev_it->first; }
+        if (prev_it->second >= min){ min = prev_it->first; }
     }
 
     // remove ranges contained in new range 
