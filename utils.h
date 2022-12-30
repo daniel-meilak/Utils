@@ -423,6 +423,7 @@ template <typename T> T manhattan(const T &x1, const T &y1, const T &x2=0, const
 template<typename It, typename Distance, typename Con>
 constexpr void advance_cyclic(It &it, Distance n, Con &container){
    auto dist = typename std::iterator_traits<It>::difference_type(n);
+   if (it == container.end()){ it = container.begin(); }
    while (dist > 0){
       --dist;
       if (it == std::next(container.end(),-1)){ it = container.begin(); }
