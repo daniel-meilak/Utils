@@ -12,17 +12,17 @@ template <typename Int = int>
 struct point_t{
    Int x,y;
 
-   point_t(Int x, Int y): x(x), y(y){};
-   point_t(const point_t<Int>& p) = default;
-   point_t(): x(0), y(0){};
+   constexpr point_t(Int x, Int y): x(x), y(y){};
+   constexpr point_t(const point_t<Int>& p) = default;
+   constexpr point_t(): x(0), y(0){};
 
    // spaceship operator defines "==","!=",">","<",">=","<="
-   auto operator<=>(const point_t&) const = default;
+   constexpr auto operator<=>(const point_t&) const = default;
 
-   point_t& operator+=(const point_t& p);
-   point_t& operator-=(const point_t& p);
-   point_t& operator*=(const Int& i);
-   point_t& operator/=(const Int& i);
+   constexpr point_t& operator+=(const point_t& p);
+   constexpr point_t& operator-=(const point_t& p);
+   constexpr point_t& operator*=(const Int& i);
+   constexpr point_t& operator/=(const Int& i);
 };
 using point = point_t<int>;
 
@@ -31,28 +31,28 @@ using point = point_t<int>;
 //================================================================
 
 template <typename Int>
-point_t<Int> &point_t<Int>::operator+=(const point_t &p){
+constexpr point_t<Int> &point_t<Int>::operator+=(const point_t &p){
    this->x += p.x;
    this->y += p.y;
    return *this;
 }
 
 template <typename Int>
-point_t<Int> &point_t<Int>::operator-=(const point_t &p){
+constexpr point_t<Int> &point_t<Int>::operator-=(const point_t &p){
    this->x -= p.x;
    this->y -= p.y;
    return *this;
 }
 
 template <typename Int>
-point_t<Int> &point_t<Int>::operator*=(const Int &i){
+constexpr point_t<Int> &point_t<Int>::operator*=(const Int &i){
    this->x *= i;
    this->y *= i;
    return *this;
 }
 
 template <typename Int>
-point_t<Int> &point_t<Int>::operator/=(const Int &i){
+constexpr point_t<Int> &point_t<Int>::operator/=(const Int &i){
    this->x /= i;
    this->y /= i;
    return *this;
@@ -63,12 +63,12 @@ point_t<Int> &point_t<Int>::operator/=(const Int &i){
 //================================================================
 
 template <typename Int>
-point_t<Int> operator+(const point_t<Int> &lhs, const point_t<Int> &rhs){
+constexpr point_t<Int> operator+(const point_t<Int> &lhs, const point_t<Int> &rhs){
    return {lhs.x+rhs.x, lhs.y+rhs.y};
 }
 
 template <typename Int>
-point_t<Int> operator-(const point_t<Int> &lhs, const point_t<Int> &rhs){
+constexpr point_t<Int> operator-(const point_t<Int> &lhs, const point_t<Int> &rhs){
    return {lhs.x-rhs.x, lhs.y-rhs.y};
 }
 
