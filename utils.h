@@ -448,6 +448,23 @@ constexpr It next_cyclic(It it, const Distance &n, Con &container){
 // Grid functions
 //=======================================================================================================
 
+// pad a grid on all sides
+template<typename Grid, typename Ele>
+void pad(Grid &grid, const Ele element){
+
+   const size_t width = grid[0].size();
+
+   // pad top and bottom
+   grid.insert(grid.begin(), std::string(width, element));
+   grid.push_back(std::string(width, element));
+
+   // pad left and right
+   for (auto &row : grid){
+      row.insert(row.begin(), element);
+      row.push_back(element);
+   }
+}
+
 // count number of element in grid
 template<typename Grid, typename Ele>
 unsigned long long grid_count(const Grid &grid, const Ele element){
