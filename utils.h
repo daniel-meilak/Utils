@@ -185,8 +185,8 @@ Cont1<Cont2<std::string>> read_input_2D(std::string file_name, std::vector<std::
    return input;
 }
 
-// Function to read grid of ints, no space between each digit, with optional border and initialization value
-std::vector<std::vector<int>> read_int_grid(std::string file_name, bool border = false, int border_fill = 0){
+// Function to read grid of ints, no space between each digit
+std::vector<std::vector<int>> read_int_grid(std::string file_name){
 
    // output grid
    std::vector<std::vector<int>> grid;
@@ -206,33 +206,21 @@ std::vector<std::vector<int>> read_int_grid(std::string file_name, bool border =
 
    // get width of grid
    getline(input_file, line);
-   size_t width = line.size() + 2ul*border;
+   size_t width = line.size();
    int_line.reserve(width);
    input_file.seekg(0,std::ios::beg);
 
-   // if border required, add top
-   if (border){ grid.push_back( std::vector<int>(width,border_fill)); }
-
    while ( getline(input_file, line) ){
-
-      // if border required, add left
-      if (border){ int_line.push_back(border_fill); }
 
       // convert each char to int
       for ( const char& c : line){
          int_line.push_back(c-'0');
       }
 
-      // if border required, add right
-      if (border){ int_line.push_back(border_fill); }
-
       // add to grid and empty line
       grid.push_back(int_line);
       int_line.clear();
    }
-
-   // if border required, add bottom
-   if (border){ grid.push_back( std::vector<int>(width,border_fill)); }
 
    return grid;
 }
