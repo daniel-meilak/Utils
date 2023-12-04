@@ -449,14 +449,14 @@ constexpr It next_cyclic(It it, const Distance &n, Con &container){
 //=======================================================================================================
 
 // pad a grid on all sides
-template<typename Grid, typename Ele>
+template<typename Grid, template<typename...> typename Cont = std::basic_string, typename Ele = char>
 void pad(Grid &grid, const Ele element){
 
    const size_t width = grid[0].size();
 
    // pad top and bottom
-   grid.insert(grid.begin(), std::string(width, element));
-   grid.push_back(std::string(width, element));
+   grid.insert(grid.begin(), Cont<Ele>(width, element));
+   grid.push_back(Cont<Ele>(width, element));
 
    // pad left and right
    for (auto &row : grid){
