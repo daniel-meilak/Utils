@@ -23,6 +23,12 @@ struct point_t{
    constexpr point_t& operator-=(const point_t& p);
    constexpr point_t& operator*=(const Int& i);
    constexpr point_t& operator/=(const Int& i);
+
+   // move in direction functions
+   constexpr point_t up(Int i = 1) const;
+   constexpr point_t down(Int i = 1) const;
+   constexpr point_t left(Int i = 1) const;
+   constexpr point_t right(Int i = 1) const;
 };
 using point = point_t<int>;
 
@@ -84,6 +90,30 @@ namespace std {
          return std::hash<Int>()(p.x ^ (p.y << 4));
       }
    };
+}
+
+//================================================================
+// move in direction functions
+//================================================================
+
+template <typename Int>
+constexpr point_t<Int> point_t<Int>::up(Int i) const{
+   return {this->x, this->y-i};
+}
+
+template <typename Int>
+constexpr point_t<Int> point_t<Int>::down(Int i) const{
+   return {this->x, this->y+i};
+}
+
+template <typename Int>
+constexpr point_t<Int> point_t<Int>::left(Int i) const{
+   return {this->x-i, this->y};
+}
+
+template <typename Int>
+constexpr point_t<Int> point_t<Int>::right(Int i) const{
+   return {this->x+i, this->y};
 }
 
 //================================================================
