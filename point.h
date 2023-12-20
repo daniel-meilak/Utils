@@ -32,6 +32,13 @@ struct point_t{
 };
 using point = point_t<int>;
 
+namespace dir {
+   constexpr point up    = { 0,-1};
+   constexpr point down  = { 0, 1};
+   constexpr point left  = {-1, 0};
+   constexpr point right = { 1, 0};
+}
+
 //================================================================
 // Member functions
 //================================================================
