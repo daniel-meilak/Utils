@@ -85,6 +85,16 @@ constexpr point_t<Int> operator-(const point_t<Int> &lhs, const point_t<Int> &rh
    return {lhs.x-rhs.x, lhs.y-rhs.y};
 }
 
+template <typename Int>
+constexpr point_t<Int> operator*(const point_t<Int> &lhs, Int rhs){
+   return {lhs.x*rhs, lhs.y*rhs};
+}
+
+template <typename Int>
+constexpr point_t<Int> operator*(Int lhs, const point_t<Int> &rhs){
+   return {rhs.x*lhs, rhs.y*lhs};
+}
+
 //================================================================
 // Hashing function
 //================================================================
