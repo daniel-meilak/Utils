@@ -7,6 +7,7 @@
 #include<iostream>
 #include<sstream>
 #include<string>
+#include<utility>
 #include<vector>
 
 //=======================================================================================================
@@ -451,6 +452,19 @@ void pad(Grid &grid, const Ele element){
       row.insert(row.begin(), element);
       row.push_back(element);
    }
+}
+
+template<typename Grid, typename Ele>
+std::pair<std::size_t,std::size_t> find_in_grid(const Grid &grid, Ele element){
+
+   for (std::size_t y = 0; y < grid.size(); y++){
+      for (std::size_t x = 0; x < grid[0].size(); x++){
+         if (grid[y][x] == element){ return {x,y}; }
+      }
+   }
+
+   std::cout << "Could not find match for element in grid\n";
+   std::exit(EXIT_FAILURE);
 }
 
 // count number of element in grid
